@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlowBundle revision="4" name="token-validation-v1-salesforce">
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1530215702460</CreatedAt>
+    <CreatedBy>kurtkanaskie@google.com</CreatedBy>
+    <Description>POC for customers (not validated since July 2018, may need adjustment).</Description>
+    <DisplayName>token-validation-v1-salesforce</DisplayName>
+    <LastModifiedAt>1579100312849</LastModifiedAt>
+    <LastModifiedBy>kurtkanaskie@google.com</LastModifiedBy>
+    <ManifestVersion>SHA-512:b3347ae1a585fafe8029201e598ccf50d18c9a9a28f7366b4a00c6e0b15e90a097ea6dbe6419e2cbd3c537d4551c1e8b46e2856f931c459a4fb254fd372d5b53</ManifestVersion>
+    <Policies>
+        <Policy>AM-Debug</Policy>
+        <Policy>AM-InjectAccessToken</Policy>
+        <Policy>AM-RemoveAuthorizationHeader</Policy>
+        <Policy>AM-SetClientCredentialsParams</Policy>
+        <Policy>BA-CreateAuthorization</Policy>
+        <Policy>EV-AccessToken</Policy>
+        <Policy>EV-TokenInfo</Policy>
+        <Policy>JS-AdjustExpiryTime</Policy>
+        <Policy>KV-GetClientIdForUser</Policy>
+        <Policy>KV-GetCredentials</Policy>
+        <Policy>OA-GenerateAndStoreExternalToken</Policy>
+        <Policy>OA-ValidateStoredTokenForProductAccess</Policy>
+        <Policy>OA-ValidateToken</Policy>
+        <Policy>RF-InactiveUser</Policy>
+        <Policy>RF-InvalidToken</Policy>
+        <Policy>RF-MissingClientIds</Policy>
+        <Policy>RF-TokenExpired</Policy>
+        <Policy>SC-RevokeToken</Policy>
+        <Policy>SC-ValidateToken</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://JS-AdjustExpiryTime.js</Resource>
+    </Resources>
+    <Spec></Spec>
+    <subType>SharedFlow</subType>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+</SharedFlowBundle>

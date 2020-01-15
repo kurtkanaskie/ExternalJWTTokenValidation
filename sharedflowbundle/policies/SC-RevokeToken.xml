@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-RevokeToken">
+    <DisplayName>SC-RevokeToken</DisplayName>
+    <Properties/>
+    <Request>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/x-www-form-urlencoded</Header>
+                <Header name="Authorization">{request.header.authorization}</Header>
+            </Headers>
+            <FormParams>
+                <FormParam name="token">{access_token}</FormParam>
+            </FormParams>
+            <Verb>POST</Verb>
+            <Path/>
+        </Set>
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    </Request>
+    <Response>revokeResponse</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <URL>https://{private.idp_host}/{private.idp_revoke}</URL>
+        <!--<URL>https://devauth.vanguardarchitecture.org/as/token.oauth2</URL>-->
+    </HTTPTargetConnection>
+</ServiceCallout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-TokenInfo">
+    <DisplayName>EV-TokenInfo</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="token_active" type="boolean">
+            <JSONPath>$.active</JSONPath>
+        </Variable>
+        <Variable name="token_preferred_username" type="string">
+            <JSONPath>$.preferred_username</JSONPath>
+        </Variable>
+        <Variable name="token_email" type="string">
+            <JSONPath>$.email</JSONPath>
+        </Variable>
+        <Variable name="token_organization_id" type="string">
+            <JSONPath>$.organization_id</JSONPath>
+        </Variable>
+        <Variable name="token_username" type="string">
+            <JSONPath>$.username</JSONPath>
+        </Variable>
+        <Variable name="token_client_ids_key" type="string">
+            <JSONPath>$.nickname</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">tokenResponse</Source>
+</ExtractVariables>

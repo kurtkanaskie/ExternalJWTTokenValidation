@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlow name="default">
+    <Step>
+        <Name>OA-ValidateToken</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>EV-AccessToken</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>KV-GetCredentials</Name>
+    </Step>
+    <Step>
+        <Condition>(oauthV2.OA-ValidateToken.fault.name == "keymanagement.service.access_token_expired")</Condition>
+        <Name>SC-RevokeToken</Name>
+    </Step>
+    <Step>
+        <Name>AM-Debug</Name>
+    </Step>
+    <Step>
+        <Condition>(oauthV2.OA-ValidateToken.fault.name == "keymanagement.service.access_token_expired")</Condition>
+        <Name>RF-TokenExpired</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>SC-ValidateToken</Name>
+    </Step>
+    <Step>
+        <Name>AM-Debug</Name>
+    </Step>
+    <Step>
+        <Condition>(tokenResponse.status.code &gt;= 400)</Condition>
+        <Name>RF-InvalidToken</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>EV-TokenInfo</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>KV-GetClientIdForUser</Name>
+    </Step>
+    <Step>
+        <Condition>(oauthV2.OA-ValidateToken.failed equals "true") AND (token_active != 'true')</Condition>
+        <Name>RF-InactiveUser</Name>
+    </Step>
+    <Step>
+        <Condition>(oauthV2.OA-ValidateToken.failed equals "true") AND 
+                   (token_client_id == null OR  token_client_secret == null)
+        </Condition>
+        <Name>RF-MissingClientIds</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>JS-AdjustExpiryTime</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>AM-SetClientCredentialsParams</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>OA-GenerateAndStoreExternalToken</Name>
+    </Step>
+    <Step>
+        <!-- Why is this needed? -->
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>AM-InjectAccessToken</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>OA-ValidateStoredTokenForProductAccess</Name>
+    </Step>
+</SharedFlow>

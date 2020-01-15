@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="true" enabled="true" name="SC-ValidateToken">
+    <DisplayName>SC-ValidateToken</DisplayName>
+    <Request>
+        <Set>
+            <Headers>
+                <Header name="Content-Type">application/x-www-form-urlencoded</Header>
+                <Header name="Authorization">{request.header.authorization}</Header>
+            </Headers>
+            <Verb>GET</Verb>
+            <Path/>
+        </Set>
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    </Request>
+    <Response>tokenResponse</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <URL>https://{private.idp_host}/{private.idp_validate}</URL>
+        <!--<URL>https://devauth.vanguardarchitecture.org/as/token.oauth2</URL>-->
+    </HTTPTargetConnection>
+</ServiceCallout>
