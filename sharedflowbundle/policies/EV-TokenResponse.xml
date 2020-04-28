@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-TokenResponse">
+    <DisplayName>EV-TokenResponse</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="response_external_client_id" type="string">
+            <JSONPath>$.claims.client_id</JSONPath>
+        </Variable>
+        <Variable name="response_active" type="string">
+            <JSONPath>$.active</JSONPath>
+        </Variable>
+        <Variable name="response_token_type" type="string">
+            <JSONPath>$.token_type</JSONPath>
+        </Variable>
+        <Variable name="response_scope" type="string">
+            <JSONPath>$.scope</JSONPath>
+        </Variable>
+        <Variable name="response_exp" type="string">
+            <JSONPath>$.exp</JSONPath>
+        </Variable>
+        <Variable name="response_iat" type="string">
+            <JSONPath>$.iat</JSONPath>
+        </Variable>
+        <Variable name="response_jti" type="string">
+            <JSONPath>$.jti</JSONPath>
+        </Variable>
+        <!-- on error -->
+        <Variable name="response_error" type="string">
+            <JSONPath>$.error</JSONPath>
+        </Variable>
+        <Variable name="response_error_description" type="string">
+            <JSONPath>$.error_description</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">validate_response</Source>
+</ExtractVariables>

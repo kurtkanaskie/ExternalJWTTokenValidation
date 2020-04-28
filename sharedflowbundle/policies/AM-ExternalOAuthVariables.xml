@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-ExternalOAuthVariables">
+    <DisplayName>AM-ExternalOAuthVariables</DisplayName>
+    <AssignVariable>
+        <Name>oauth_external_authorization_status</Name>
+        <Value>true</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>grant_type</Name>
+        <Value>client_credentials</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>request_header_authorization</Name>
+        <Ref>request.header.authorization</Ref>
+    </AssignVariable>
+    <Remove>
+        <Headers>
+            <Header name="Authorization"/>
+        </Headers>
+    </Remove>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</AssignMessage>

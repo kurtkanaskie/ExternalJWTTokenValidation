@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-TokenErrors">
+    <DisplayName>RF-TokenErrors</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers/>
+            <Payload contentType="application/json">
+{
+    "code":"401.04",
+    "error":"{oauthV2.OA-VerifyAccessToken.fault.name}",
+    "error_description":"{oauthV2.OA-VerifyAccessToken.fault.cause}",
+    "info":"https://developer.exco.com/errors"
+}
+            </Payload>
+            <StatusCode>401</StatusCode>
+            <ReasonPhrase>Unauthorized</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

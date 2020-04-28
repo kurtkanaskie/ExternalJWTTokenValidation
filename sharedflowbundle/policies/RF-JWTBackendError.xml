@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-JWTBackendError">
+    <DisplayName>RF-JWTBackendError</DisplayName>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers/>
+            <Payload contentType="application/json">
+{
+    "code":"500.01",
+    "error":"backend_error",
+    "error_description":"Backend returned error response code {validate_response.status.code} {validate_response.reason.phrase} or 405 without Allow Header",
+    "info":"https://developer.exco.com/errors"
+}
+            </Payload>
+            <StatusCode>500</StatusCode>
+            <ReasonPhrase>Server Error</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

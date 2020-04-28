@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 async="false" continueOnError="true" enabled="true" name="OA-VerifyAccessToken">
+    <DisplayName>OA-VerifyAccessToken</DisplayName>
+    <ExternalAuthorization>false</ExternalAuthorization>
+    <Operation>VerifyAccessToken</Operation>
+    <SupportedGrantTypes/>
+    <Tokens/>
+    <AccessToken>external_access_token</AccessToken>
+</OAuthV2>

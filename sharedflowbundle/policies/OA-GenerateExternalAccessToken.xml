@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 async="false" continueOnError="false" enabled="true" name="OA-GenerateExternalAccessToken">
+    <DisplayName>OA-GenerateExternalAccessToken</DisplayName>
+    <Operation>GenerateAccessToken</Operation>
+    <GrantType>grant_type</GrantType>
+    <!-- Debug to expire Edge token before JWT
+    <ExpiresIn>60000</ExpiresIn>
+    -->
+    <ExpiresIn ref="expiresInMilliSeconds">3600000</ExpiresIn>
+    <ReuseRefreshToken>false</ReuseRefreshToken>
+    <SupportedGrantTypes>
+        <GrantType>client_credentials</GrantType>
+    </SupportedGrantTypes>
+    <GenerateResponse enabled="false"/>
+    <GenerateErrorResponse enabled="false"/>
+    <StoreToken>true</StoreToken>
+    <ExternalAccessToken>external_access_token</ExternalAccessToken>
+    <!-- What does this affect?
+    <ExternalAuthorization>true</ExternalAuthorization>
+    -->
+</OAuthV2>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-ExternalAccessToken">
+    <DisplayName>AM-ExternalAccessToken</DisplayName>
+    <AssignVariable>
+        <Name>external_access_token</Name>
+        <Ref>jwt.JW-Decode.decoded.claim.jti</Ref>
+        <Value>my-default-token</Value>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>external_client_id</Name>
+        <Ref>jwt.JW-Decode.claim.client_id</Ref>
+        <!-- Use this until JWT passes the synced client_id from Okta that is in Edge -->
+        <Value>20A8O13RGsxGs84xUovs2eYMJD9kpZBb</Value>
+    </AssignVariable>
+    <!--
+    <AssignVariable>
+        <Name>external_client_secret</Name>
+        <Ref>response_external_client_secret</Ref>
+        <Value>5jIkoNi8kWkVFNg5</Value>
+    </AssignVariable>
+    -->
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>
