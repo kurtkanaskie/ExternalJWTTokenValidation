@@ -3,19 +3,25 @@
     <DisplayName>SC-ValidateToken</DisplayName>
     <Request>
         <Set>
-            <Headers>
-                <Header name="Content-Type">application/x-www-form-urlencoded</Header>
-                <Header name="Authorization">{request.header.authorization}</Header>
-            </Headers>
-            <Verb>GET</Verb>
-            <Path/>
+            <Verb>POST</Verb>
+            <FormParams>
+                <FormParam name="client_id">{idp_client_id}</FormParam>
+                <FormParam name="client_secret">{idp_client_secret}</FormParam>
+                <FormParam name="token">{access_token}</FormParam>
+                <FormParam name="token_type_hint">access_token</FormParam>
+            </FormParams>
         </Set>
-        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
     </Request>
-    <Response>tokenResponse</Response>
+    <Response>validate_response</Response>
     <HTTPTargetConnection>
-        <Properties/>
-        <URL>https://{private.idp_host}/{private.idp_validate}</URL>
-        <!--<URL>https://devauth.vanguardarchitecture.org/as/token.oauth2</URL>-->
+        <Properties>
+            <!-- OKTA does not return Allow Header with 405 and Edge throughs fault and cannot consider it as success -->
+            <Property name="success.codes">1xx,2xx,3xx,4xx,5xx</Property>
+        </Properties>
+        <!--
+        <URL>https://{idp_host}.not/{idp_introspect}</URL> 504 GATEWAY_TIMEOUT, response
+        <URL>https://{idp_host}/{idp_introspect}X</URL> 405 without Allow Header, no response always fault
+        -->
+        <URL>https://{idp_host}/{idp_introspect}</URL>
     </HTTPTargetConnection>
 </ServiceCallout>

@@ -1,75 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <SharedFlow name="default">
     <Step>
-        <Name>OA-ValidateToken</Name>
+        <Name>KV-ExternalIdPTargetSettings</Name>
     </Step>
     <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Name>JW-Decode</Name>
+    </Step>
+    <Step>
+        <Name>JW-Verify</Name>
+    </Step>
+    <Step>
+        <Condition>jwt.JW-Decode.is_expired equals "true"</Condition>
+        <Name>RF-JWTExpired</Name>
+    </Step>
+    <Step>
+        <Name>AM-ExternalAccessToken</Name>
+    </Step>
+    <Step>
+        <Name>OA-VerifyAccessToken</Name>
+    </Step>
+    <Step>
+        <Name>AM-Debug</Name>
+    </Step>
+    <Step>
+        <!-- Use this to detect a value that has not been used, all others cover expiration, revoked, etc. -->
+        <Condition>(oauthV2.OA-VerifyAccessToken.failed == "true") AND 
+                   (oauthV2.OA-VerifyAccessToken.fault.name != "keymanagement.service.invalid_access_token")</Condition>
+        <Name>RF-TokenErrors</Name>
+    </Step>
+    <Step>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
         <Name>EV-AccessToken</Name>
     </Step>
     <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>KV-GetCredentials</Name>
-    </Step>
-    <Step>
-        <Condition>(oauthV2.OA-ValidateToken.fault.name == "keymanagement.service.access_token_expired")</Condition>
-        <Name>SC-RevokeToken</Name>
-    </Step>
-    <Step>
-        <Name>AM-Debug</Name>
-    </Step>
-    <Step>
-        <Condition>(oauthV2.OA-ValidateToken.fault.name == "keymanagement.service.access_token_expired")</Condition>
-        <Name>RF-TokenExpired</Name>
-    </Step>
-    <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
         <Name>SC-ValidateToken</Name>
     </Step>
     <Step>
-        <Name>AM-Debug</Name>
+        <Condition>(oauthV2.OA-VerifyAccessToken.failed == "true") AND (validate_response.status.code != "200")</Condition>
+        <Name>RF-JWTBackendError</Name>
     </Step>
     <Step>
-        <Condition>(tokenResponse.status.code &gt;= 400)</Condition>
-        <Name>RF-InvalidToken</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>EV-TokenResponse</Name>
     </Step>
     <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>EV-TokenInfo</Name>
+        <Condition>(oauthV2.OA-VerifyAccessToken.failed == "true") and (response_active != "true")</Condition>
+        <Name>RF-JWTInactive</Name>
     </Step>
     <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>KV-GetClientIdForUser</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>JS-SetExpiresIn</Name>
     </Step>
     <Step>
-        <Condition>(oauthV2.OA-ValidateToken.failed equals "true") AND (token_active != 'true')</Condition>
-        <Name>RF-InactiveUser</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>VA-ClientId</Name>
     </Step>
     <Step>
-        <Condition>(oauthV2.OA-ValidateToken.failed equals "true") AND 
-                   (token_client_id == null OR  token_client_secret == null)
-        </Condition>
-        <Name>RF-MissingClientIds</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>AM-ExternalOAuthVariables</Name>
     </Step>
     <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>JS-AdjustExpiryTime</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>BA-Generate</Name>
     </Step>
     <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>AM-SetClientCredentialsParams</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>OA-GenerateExternalAccessToken</Name>
     </Step>
     <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>OA-GenerateAndStoreExternalToken</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>OA-VerifyAccessTokenToGetProperties</Name>
     </Step>
     <Step>
-        <!-- Why is this needed? -->
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>AM-InjectAccessToken</Name>
-    </Step>
-    <Step>
-        <Condition>oauthV2.OA-ValidateToken.failed equals "true"</Condition>
-        <Name>OA-ValidateStoredTokenForProductAccess</Name>
+        <Condition>oauthV2.OA-VerifyAccessToken.failed == "true"</Condition>
+        <Name>AM-RestoreRequest</Name>
     </Step>
 </SharedFlow>

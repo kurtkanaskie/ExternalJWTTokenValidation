@@ -1,4 +1,4 @@
-# Demo-ExternalTokenValidationAndUsage-SharedFlow
+# ExternalJWTTokenValidation
 Demonstrates how to use a Shared Flow to validate an external access token and use it as the value of the Apigee access_token.
 
 TBD - Needs to be updated and validated, last used July 2018.
