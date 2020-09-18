@@ -1,0 +1,42 @@
+Title Edge to External IdP - Token Validation
+
+participant App as C 
+participant Apigee\nAPI as A
+participant Open ID Provider\nAPI as AZ 
+participant Logon\nApp as L 
+participant Backend\nAPIs as B 
+
+note over C,A,AZ: 
+App uses external keys registered with 
+Synchronized with Edge
+end note
+
+C->AZ: POST /oidc/v1/token {any flow}
+AZ-->C: 200 OK {access_token id_token refresh_token}
+C->A: GET /resource\nAuthorization={Bearer access_token}
+
+A->A: Verify access_token (continue on error)
+
+alt token validation failed
+alt expired
+A->A: fault.name == keymanagement.service.access_token_expired
+A->AZ: Service Callout revoke token
+AZ-->A: 
+A->A: Raise Fault token expired
+A-->C: 401 Unauthorized
+
+else invalid
+A->AZ: Service Callout validate token
+AZ-->A: 
+A->A: tokenResponse.status.code >= 400
+A->A: Raise Fault token expired
+A-->C: 401 Unauthorized
+
+else valid token
+A->A: Generate access_token external
+A-->C: 200 OK {access_token} 
+end
+
+A->B: GET /backend/resource\nAuthorization=Bearer {access_token | id_token}
+B-->A: 200 OK {resource details} 
+A-->C: 200 OK {resource details}

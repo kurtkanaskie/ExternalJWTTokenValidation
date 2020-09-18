@@ -3,6 +3,9 @@ Demonstrates how to use a Shared Flow to validate an external access token and u
 
 TBD - Needs to be updated and validated, last used July 2018.
 
+![Sequence Diagram](EdgeToExternalIdpTokenValidation.png)
+
+
 ## Disclaimer
 
 This example is not an official Google product, nor is it part of an official Google product.
